@@ -25,5 +25,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        registry-url: 'https://registry.npmjs.org' 
+        registry-url: 'https://registry.npmjs.org/' 
     - run: npm config set registry https://registry.npmjs.org/ && npm publish
