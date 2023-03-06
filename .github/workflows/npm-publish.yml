@@ -30,3 +30,4 @@ jobs:
         npm publish
       env: # More info about the environment variables in the README
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
