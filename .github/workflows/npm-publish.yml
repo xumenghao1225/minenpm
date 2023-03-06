@@ -21,6 +21,12 @@ jobs:
         tag_name: "v%s"
         tag_message: "v%s"
         commit_pattern: "^(?:Release|Version) (\\S+)"
+    - name: Install dependencies
+            run: npm ci
 
+    - name: Publish to NPM
+      run: |
+        echo "//registry.npmjs.org/:_authToken=\${secrets.NPM_AUTH_TOKEN}" >> .npmrc
+        npm publish
       env: # More info about the environment variables in the README
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
