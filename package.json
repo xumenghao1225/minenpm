@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/xumenghao1225/minenpm/issues"
   },
-  "homepage": "https://github.com/xumenghao1225/minenpm#readme"
+  "homepage": "https://github.com/xumenghao1225/minenpm#readme",
+  "dependencies": {
+    "semantic-release": "^20.1.1"
+  }
 }
