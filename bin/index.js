@@ -1,9 +1,5 @@
 // #!/usr/bin/env node
 
-function createSayHello(str = 'world'){
-    console.log(`Hello ${str}`);
-}
-
-export {
-    createSayHello
+export function createSayHello(str = 'world'){
+    return `Hello ${str}`;
 }
