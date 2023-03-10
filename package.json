@@ -1,6 +1,6 @@
 {
   "name": "minenpm",
-  "version": "1.0.7",
+  "version": "1.3.0",
   "description": "",
   "main": "dist/minenpm.umd.min.js",
   "scripts": {
