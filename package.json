@@ -33,12 +33,13 @@
     "element-ui": "^2.15.6"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^3.3.0",
-    "semantic-release": "^20.1.1",
-    "vue-template-compiler": "~2.6.11",
+    "@types/lodash": "^4.14.191",
     "@vue/cli-plugin-babel": "~4.5.14",
     "@vue/cli-service": "~4.5.14",
-    "@vue/eslint-config-standard": "^5.1.2"
+    "@vue/eslint-config-standard": "^5.1.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "semantic-release": "^20.1.1",
+    "vue-template-compiler": "~2.6.11"
   },
   "config": {
     "commitizen": {
