@@ -13,4 +13,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 } 
 // 导出 install （如果作为一个包，一定要有install ！！！） 
 export default { install }
-export { default as ClickDebounceDirective } from './utils/directives';
+import { ClickDebounceDirective } from './utils/directives';
+export {
+  ClickDebounceDirective
+}
