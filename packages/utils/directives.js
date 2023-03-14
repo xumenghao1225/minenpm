@@ -4,43 +4,25 @@ import { debounce } from 'lodash';
  * @example v-ClickDebounceDirective="3000"
  */
 export const ClickDebounceDirective = {
-  bind(el, binding) {
-    let isClicked = false;
-    const debounceTime = binding.arg ? parseInt(binding.arg, 10) : 1000;
-    const debouncedClickHandler = debounce(() => {
-      if (!isClicked) {
-        isClicked = true;
-        binding.value();
-        setTimeout(() => {
-          isClicked = false;
-        }, debounceTime);
+  bind: function(el, binding) {
+    console.log(binding)
+    function clickHandler(e) {
+      if (el.contains(e.target)) {
+        if (!el.disabled) {
+          el.disabled = true;
+          setTimeout(() => {
+            el.disabled = false;
+          }, binding.value || 3000);
+        }
+        return false;
       }
-    }, debounceTime, { leading: true, trailing: false });
-    el.addEventListener('click', debouncedClickHandler);
-    el._clickDebounceHandler = debouncedClickHandler;
-    el._clickDebounceTime = debounceTime;
+    }
+
+    el.bffClick = clickHandler;
+    document.addEventListener("click", clickHandler);
   },
   unbind(el) {
-    el.removeEventListener('click', el._clickDebounceHandler);
-    delete el._clickDebounceHandler;
-    delete el._clickDebounceTime;
-  },
-  update(el, binding) {
-    if (binding.arg && parseInt(binding.arg, 10) !== el._clickDebounceTime) {
-      const debounceTime = parseInt(binding.arg, 10);
-      el.removeEventListener('click', el._clickDebounceHandler);
-      const debouncedClickHandler = debounce(() => {
-        if (!isClicked) {
-          isClicked = true;
-          binding.value();
-          setTimeout(() => {
-            isClicked = false;
-          }, debounceTime);
-        }
-      }, debounceTime, { leading: true, trailing: false });
-      el.addEventListener('click', debouncedClickHandler);
-      el._clickDebounceHandler = debouncedClickHandler;
-      el._clickDebounceTime = debounceTime;
-    }
-  },
+    document.removeEventListener("click", el.bffClick);
+    delete el.bffClick;
+  }
 };

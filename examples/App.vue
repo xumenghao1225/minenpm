@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <cbf-button type="primary" @click="handleSubmit" icon="el-icon-search">按钮2</cbf-button>
+    <cbf-button v-ClickDebounceDirective="3000" type="primary" @click="handleSubmit" icon="el-icon-search">按钮2</cbf-button>
   </div>
 </template>
 
