@@ -1,5 +1,5 @@
 const { resolve } = require('path')
-
+const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
 module.exports = {
   pages: {
     index: {
@@ -9,6 +9,7 @@ module.exports = {
       filename: 'index.html'
     }
   },
+  productionSourceMap: false,
   // 扩展 webpack 配置，使 packages 加入编译
   chainWebpack: config => {
     config.module
@@ -19,5 +20,14 @@ module.exports = {
     .tap(options => {
         return options
     })
-  }
+  },
+  configureWebpack: {
+    optimization: {
+      usedExports: true,
+      minimize: true
+    },
+    plugins: [
+      new WebpackDeepScopeAnalysisPlugin()
+    ]
+   }
 }
