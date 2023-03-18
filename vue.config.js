@@ -67,15 +67,15 @@ module.exports = {
           exclude: /node_modules|utils\/popper\.js|utils\/date\.js|utils\/lodash\.js/,
           loader: 'babel-loader'
         },
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader',
-          options: {
-            compilerOptions: {
-              preserveWhitespace: false
-            }
-          }
-        }
+        // {
+        //   test: /\.vue$/,
+        //   loader: 'vue-loader',
+        //   options: {
+        //     compilerOptions: {
+        //       preserveWhitespace: false
+        //     }
+        //   }
+        // }
       ]
     },
     plugins: [
