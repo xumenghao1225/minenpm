@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "semantic-release": "semantic-release --branches main",
     "commit": "git-cz",
-    "lib": "vue-cli-service build --target lib packages/index.js",
+    "lib": "vue-cli-service build --target lib packages/index.js && git add . && git-cz",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
