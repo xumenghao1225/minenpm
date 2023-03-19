@@ -16,9 +16,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 18
-    # 构建命令：安装依赖 -> 清除上次打包产物残留 -> 执行构建 【请根据项目实际产出进行填写】
-    - run: npm run bootstrap && rm -rf ./dist && npm run lib
     - run: npm ci
+    - run: npm run lib
     - run: npm update semantic-release
     - run: npm run semantic-release
       env:
