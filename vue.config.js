@@ -1,6 +1,9 @@
 const { resolve } = require('path')
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
-const TerserPlugin = require("terser-webpack-plugin")
+const TerserPlugin = require("terser-webpack-plugin");
+const isProduction = process.env.NODE_ENV === 'production';
+const { TerserPluginOption } = require("./plugins")
+const MinimizerPlugin = isProduction ? [new TerserPlugin(TerserPluginOption)] : []
 module.exports = {
   pages: {
     index: {
@@ -26,32 +29,13 @@ module.exports = {
     optimization: {
       usedExports: false,
       minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            ecma: 2020,
-            warnings: false,
-            parse: {
-              bare_returns: true,
-              html5_comments: false
-            },
-            compress: {
-              drop_console: false,
-              drop_debugger: false,
-              pure_funcs: ['console.log'], // 移除console
-            },
-            dead_code: false,
-            side_effects: false,
-            mangle: true,
-            module: false,
-            toplevel: false,
-            nameCache: null,
-            ie8: false,
-            keep_fnames: false,
-            safari10: false
-          }
-        })
-      ]
+      minimizer: [ ...MinimizerPlugin]
+    },
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './packages/') // 路径别名
+      },
+      extensions: ['.js', '.json', '.ts', '.vue'] // 使用路径别名时想要省略的后缀名，可以自己 增减
     },
     performance: {
       hints: false

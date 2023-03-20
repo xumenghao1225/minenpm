@@ -2,7 +2,7 @@
 /* eslint-disable  no-extra-semi  */
 import Vue from 'vue'
 import App from './App.vue'
-import { ClickDebounceDirective } from '../packages/utils/directives';
+import { ClickDebounceDirective } from '@/utils/directives';
 // 将组件包引入
 import CbfUI from '../packages'
 

@@ -1,5 +1,5 @@
 // 引入button组件 
-import CbfButton from './button.vue' 
+import CbfButton from '@/views/buttons/button.vue' 
 // 引入elementUI样式 
 import 'element-ui/lib/theme-chalk/index.css';
 
