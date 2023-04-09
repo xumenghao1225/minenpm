@@ -33,7 +33,8 @@ module.exports = {
     },
     resolve: {
       alias: {
-        '@': resolve(__dirname, './packages/') // 路径别名
+        '@': resolve(__dirname, './packages/'), // 路径别名
+        '~': resolve(__dirname, './examples/') // 路径别名
       },
       extensions: ['.js', '.json', '.ts', '.vue'] // 使用路径别名时想要省略的后缀名，可以自己 增减
     },
@@ -52,14 +53,22 @@ module.exports = {
           loader: 'babel-loader'
         },
         // {
-        //   test: /\.vue$/,
+        //   test: /\.vue/,
         //   loader: 'vue-loader',
         //   options: {
-        //     compilerOptions: {
-        //       preserveWhitespace: false
-        //     }
+        //     // compilerOptions: {
+        //     //   preserveWhitespace: false
+        //     // }
         //   }
-        // }
+        // },
+        // {
+        //   test: /\.(scss)$/,
+        //   use: [
+        //     'style-loader',
+        //     'css-loader',
+        //     'sass-loader'
+        //   ]
+        // },
       ]
     },
     plugins: [

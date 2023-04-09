@@ -1,21 +1,14 @@
 <template>
   <div id="app">
-    <cbf-button v-ClickDebounceDirective="3000" type="primary" @click="handleSubmit" icon="el-icon-search">按钮2</cbf-button>
+    <router-view />
   </div>
 </template>
-
-<script>
-
-export default {
-  name: 'App',
-  methods: {
-    handleSubmit () {
-      console.log('123')
-    }
-  }
-}
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator"
+@Component({
+  name: "App"
+})
+export default class App extends Vue{
+  id = 'fs'
+};
 </script>
-
-<style lang="scss">
-
-</style>

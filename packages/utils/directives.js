@@ -5,7 +5,6 @@ import { debounce } from 'lodash/debounce';
  */
 export const ClickDebounceDirective = {
   bind: function(el, binding) {
-    console.log(binding)
     function clickHandler(e) {
       if (el.contains(e.target)) {
         if (!el.disabled) {

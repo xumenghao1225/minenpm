@@ -1,0 +1,93 @@
+<template>
+  <div>
+    <Button type="primary" v-ClickDebounceDirective @click="DirectiveClick">Directive</Button>
+    <Button type="primary" @click="normalClick">Normal</Button>
+    
+    <CodeBox :code="code">
+      <template>
+        指令源码
+      </template>
+      <template #highlight>
+        <pre class="highlight code.hljs">
+          <code>
+            export const ClickDebounceDirective = {
+              bind: function(el, binding) {
+                function clickHandler(e) {
+                  if (el.contains(e.target)) {
+                    if (!el.disabled) {
+                      el.disabled = true;
+                      setTimeout(() => {
+                        el.disabled = false;
+                      }, binding.value || 3000);
+                    }
+                    return false;
+                  }
+                }
+
+                el.bffClick = clickHandler;
+                document.addEventListener("click", clickHandler);
+              },
+              unbind(el) {
+                document.removeEventListener("click", el.bffClick);
+                delete el.bffClick;
+              }
+            };
+          </code>
+      </pre>
+      </template>
+    </CodeBox>
+  </div>
+</template>
+
+<script>
+import { Button, Message} from "element-ui"
+import { CodeBox } from "~/components"
+import { Component, Vue } from "vue-property-decorator";
+@Component({
+  name: 'Directives',
+  components: {
+    Button,
+    CodeBox
+  }
+})
+export default class Directives extends Vue {
+  DirectiveClick(){
+    Message.info("Directives Click");
+  }
+
+  normalClick(){
+    Message.info("Normal Click");
+  }
+
+  get code (){
+    return `
+      DirectiveClick(){
+        Message.info("Directives Click");
+      }
+
+      normalClick(){
+        Message.info("Normal Click");
+      }
+    `
+  }
+
+  mounted() {
+    this.$nextTick(() => {
+      let highlight = this.$el.getElementsByClassName('highlight')[0];
+      if (this.$el.getElementsByClassName('description').length === 0) {
+        highlight.style.width = '100%';
+        highlight.borderRight = 'none';
+      }
+    });
+  }
+
+  beforeDestroy() {
+    this.removeScrollHandler();
+  }
+}
+/* 
+
+    
+
+*/
+</script>

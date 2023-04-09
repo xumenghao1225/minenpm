@@ -4,9 +4,15 @@ public/
 .github/
 node_modules/
 bin/
+dist/demo.html
+dist/minenpm.common.js
+dist/minenpm.umd.js
+dist/fonts/
+.babelrc
 
 # 忽略文件
 vue.config.js
 babel.config.js
+plugins.js
 tsconfig.json
 *.map
