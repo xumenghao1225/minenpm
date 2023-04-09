@@ -4,13 +4,14 @@
   </Button>
 </template>
 
-<script>
+<script lang="ts">
 import { Button } from 'element-ui'
-
-export default {
+import { Vue, Component } from "vue-property-decorator"
+@Component({
   name: 'CbfButton',
-  components: {
-    Button
-  }
+  components: { Button }
+})
+export default class CbfButton extends Vue {
+  name="CbfButton";
 }
 </script>
