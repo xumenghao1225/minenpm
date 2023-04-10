@@ -4,3 +4,4 @@ declare module '*.vue' {
 }
 
 declare module "vue-loader"
+declare module "file-saver"

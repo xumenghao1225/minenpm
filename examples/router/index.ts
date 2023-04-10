@@ -14,7 +14,12 @@ export const routes: Array<RouteConfig> = [
         path: 'directives',
         name: 'directives',
         component: () => import("~/views/directives/index.vue"),
-      }
+      },
+      {
+        path: 'exportexcel',
+        name: '前端导出excel',
+        component: () => import("~/views/exportexcel/index.vue"),
+      },
     ]
   }
 ];

@@ -1,8 +1,11 @@
 <template>
   <div>
-    <RadioGroup v-model="selected" size="large">
-      <RadioButton :label="item.path" v-for="(item, index) in menus" :key="index">{{item.name}}</RadioButton>
-    </RadioGroup>
+    <div class="topbar">
+      <RadioGroup v-model="selected" size="large">
+        <RadioButton :label="item.path" v-for="(item, index) in menus" :key="index">{{item.name}}</RadioButton>
+      </RadioGroup>
+    </div>
+    
     <div class="view">
       <keep-alive>
         <router-view v-if="$route.meta.keepAlive"></router-view>
@@ -47,7 +50,19 @@ export default class Layout extends Vue {
 <style scoped>
   .view{
     min-height: calc(100% - 300px);
-    margin-top:20px;
+    margin-top:80px;
     border: 1px solid #eee;
+  }
+  .topbar{
+    height: 80px;
+    background-color: #fff;
+    color: #fff;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: 80px;
+    z-index: 100;
+    margin: 0 20px;
+    position: fixed;
   }
 </style>
