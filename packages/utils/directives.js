@@ -1,4 +1,3 @@
-import { debounce } from 'lodash/debounce';
 /** 
  * @description: 限制多少秒内只能点击一次, 默认是3000ms
  * @example v-ClickDebounceDirective="3000"

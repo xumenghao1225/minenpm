@@ -8,10 +8,14 @@
 import { Button } from 'element-ui'
 import { Vue, Component } from "vue-property-decorator"
 @Component({
-  name: 'CbfButton',
+  name: 'Cbfbutton',
   components: { Button }
 })
-export default class CbfButton extends Vue {
-  name="CbfButton";
+export default class Cbfbutton extends Vue {
+  name="Cbfbutton";
+  mounted() {
+    debugger
+    console.log("Cbfbutton", Cbfbutton.name);
+  }
 }
 </script>

@@ -93,5 +93,19 @@ export default class CodeBox extends Vue{
   removeScrollHandler() {
     this.scrollParent && this.scrollParent.removeEventListener('scroll', this.scrollHandler);
   }
+
+  mounted() {
+    this.$nextTick(() => {
+      let highlight = this.$el.getElementsByClassName('highlight')[0] as HTMLElement;
+      if (this.$el.getElementsByClassName('description').length === 0) {
+        highlight.style.width = '100%';
+        highlight.style.borderRight = 'none';
+      }
+    });
+  }
+
+  beforeDestroy() {
+    this.removeScrollHandler();
+  }
 };
 </script>

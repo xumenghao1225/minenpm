@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    fsafasfa
-    <!-- <router-view /> -->
+    <router-view />
   </div>
 </template>
 <script lang="ts">

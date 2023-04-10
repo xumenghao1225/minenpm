@@ -70,20 +70,6 @@ export default class Directives extends Vue {
       }
     `
   }
-
-  mounted() {
-    this.$nextTick(() => {
-      let highlight = this.$el.getElementsByClassName('highlight')[0];
-      if (this.$el.getElementsByClassName('description').length === 0) {
-        highlight.style.width = '100%';
-        highlight.borderRight = 'none';
-      }
-    });
-  }
-
-  beforeDestroy() {
-    this.removeScrollHandler();
-  }
 }
 /* 
 

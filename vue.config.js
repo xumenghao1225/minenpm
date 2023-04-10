@@ -4,6 +4,7 @@ const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').defa
 const TerserPlugin = require("terser-webpack-plugin");
 const isProduction = process.env.NODE_ENV === 'production';
 const { TerserPluginOption } = require("./plugins")
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MinimizerPlugin = isProduction ? [new TerserPlugin(TerserPluginOption)] : []
 module.exports = {
   pages: {
@@ -53,28 +54,29 @@ module.exports = {
           exclude: /node_modules/,
           loader: 'babel-loader'
         },
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader',
-          options: {
-            compilerOptions: {
-              preserveWhitespace: false
-            }
-          }
-        },
-        {
-          test: /\.(scss)$/,
-          use: [
-            'style-loader',
-            'css-loader',
-            'sass-loader'
-          ]
-        },
+        // {
+        //   test: /\.vue$/,
+        //   loader: 'vue-loader',
+        //   options: {
+        //     compilerOptions: {
+        //       preserveWhitespace: false
+        //     }
+        //   }
+        // },
+        // {
+        //   test: /\.(scss)$/,
+        //   use: [
+        //     'style-loader',
+        //     'css-loader',
+        //     'sass-loader'
+        //   ]
+        // },
       ]
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new WebpackDeepScopeAnalysisPlugin()
+      new WebpackDeepScopeAnalysisPlugin(),
+     //  new VueLoaderPlugin()
     ]
    }
 }
