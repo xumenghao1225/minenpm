@@ -1,21 +1,30 @@
 // 引入button组件 
 import { directiveButton } from '@/views' 
-import { ClickDebounceDirective, draggable } from './utils/directives';
 const components = [ directiveButton ]
+import { ClickDebounceDirective, draggable } from './utils/directives';
+import Vue from 'vue';
 const install = function (Vue) {   
-  // 全局注册所有的组件  
-  components.forEach(item => {  console.log(item.name);
-     Vue.component(item.name, item)   }) 
+  /// 判断是否安装
+  if (install.installed) return;
+  // 遍历注册全局组件
+  components.map(component => Vue.component(component.name, component));
 }
 if (typeof window !== 'undefined' && window.Vue) {   
   install(window.Vue) 
 }
+
+const result = components.reduce((accumulator, current) => {
+  accumulator[current.name] = current;
+  return accumulator;
+}, {});
+
 // 导出 install （如果作为一个包，一定要有install ！！！） 
 export default { 
   install,
-  ...components
+  ...result
 }
 export {
   ClickDebounceDirective,
-  draggable
+  draggable,
+  directiveButton
 }

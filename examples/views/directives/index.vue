@@ -1,9 +1,11 @@
 <template>
   <div>
-    <Button type="primary" v-ClickDebounceDirective @click="DirectiveClick">Directive</Button>
-    <Button type="primary" @click="normalClick">Normal</Button>
-    
     <CodeBox :code="code">
+      <template #source>
+        <directiveButton type="primary" 
+          @click="DirectiveClick">Directive</directiveButton>
+        <Button type="primary" @click="normalClick">Normal</Button>
+      </template>
       <template>
         指令源码
       </template>
@@ -42,12 +44,14 @@
 <script>
 import { Button, Message} from "element-ui"
 import { CodeBox } from "~/components"
+import { directiveButton } from "@/views"
 import { Component, Vue } from "vue-property-decorator";
 @Component({
   name: 'Directives',
   components: {
     Button,
-    CodeBox
+    CodeBox,
+    directiveButton
   }
 })
 export default class Directives extends Vue {

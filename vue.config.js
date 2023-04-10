@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
 const TerserPlugin = require("terser-webpack-plugin");
 const isProduction = process.env.NODE_ENV === 'production';
-const { TerserPluginOption } = require("./plugins")
+const { TerserPluginOption, externals } = require("./plugins")
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MinimizerPlugin = isProduction ? [new TerserPlugin(TerserPluginOption)] : []
 module.exports = {
@@ -40,6 +40,7 @@ module.exports = {
       },
       extensions: ['.js', '.json', '.ts'] // 使用路径别名时想要省略的后缀名，可以自己 增减
     },
+  //  externals: isProduction ? {...externals} : {},
     performance: {
       hints: false
     },
@@ -74,7 +75,11 @@ module.exports = {
       ]
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin(),
+      //isProduction ? undefined : new webpack.HotModuleReplacementPlugin(),
+      /** 
+        issuer: Cannot use [chunkhash] or [contenthash] for chunk in '[name].[chunkhash].js' (use [hash] instead)
+        fixed: Commented out new webpack.HotModuleReplacementPlugin() in the plugins helped fix this
+      */
       new WebpackDeepScopeAnalysisPlugin(),
      //  new VueLoaderPlugin()
     ]

@@ -2,17 +2,17 @@
   "name": "minenpm",
   "version": "1.3.0",
   "description": "",
-  "main": "dist/minenpm.umd.min.js",
-  "module": "dist/minenpm.umd.min.js",
+  "main": "dist/hsyCommon.umd.min.js",
+  "module": "dist/hsyCommon.umd.min.js",
   "exports": {
-    ".": "./dist/minenpm.umd.min.js"
+    ".": "./dist/hsyCommon.umd.min.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "semantic-release": "semantic-release --branches main",
     "commit": "git-cz",
-    "lib": "vue-cli-service build --target lib packages/index.js && git add . && git-cz",
-    "libtest": "vue-cli-service build --target lib packages/index.js",
+    "lib": "vue-cli-service build --target lib --name hsyCommon --dest dist packages/index.js && git add . && git-cz",
+    "libtest": "vue-cli-service build --target lib --name hsyCommon --dest dist packages/index.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",

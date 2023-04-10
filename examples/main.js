@@ -1,12 +1,19 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-// 将组件包引入
-import { ClickDebounceDirective } from '../packages/index.js'
+
+/* 
+  1. import package
+  import hsyCommon, { directiveButton } from "../dist/hsyCommon.umd.min"
+  2. Use
+  Vue.use({hsyCommon})
+  3. global components
+  */
+import { directiveButton, ClickDebounceDirective } from "../packages/index"
+Vue.directive("ClickDebounceDirective", ClickDebounceDirective)
+Vue.component("directiveButton", directiveButton)
 
 Vue.config.productionTip = false
-// 使用组件
-Vue.directive('ClickDebounceDirective', ClickDebounceDirective)
 
 new Vue({
   render: h => h(App),

@@ -25,7 +25,14 @@ const TerserPluginOption = {
     }
   }
 }
-
+const externals = {
+  Vue: 'Vue',
+  'vue-router': 'VueRouter',
+  'highlight.js': 'hljs',
+  lodash: 'lodash',
+  "element-ui": 'ElementUI',
+}
 module.exports = {
-  TerserPluginOption
+  TerserPluginOption,
+  externals
 }

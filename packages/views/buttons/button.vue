@@ -1,5 +1,5 @@
 <template>
-  <Button v-bind="$attrs" v-on="$listeners">
+  <Button v-ClickDebounceDirective v-bind="$attrs" v-on="$listeners">
     <slot></slot>
   </Button>
 </template>
@@ -8,14 +8,10 @@
 import { Button } from 'element-ui'
 import { Vue, Component } from "vue-property-decorator"
 @Component({
-  name: 'Cbfbutton',
+  name: 'directiveButton',
   components: { Button }
 })
-export default class Cbfbutton extends Vue {
-  name="Cbfbutton";
-  mounted() {
-    debugger
-    console.log("Cbfbutton", Cbfbutton.name);
-  }
+export default class directiveButton extends Vue {
+  
 }
 </script>
