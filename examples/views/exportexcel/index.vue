@@ -146,7 +146,7 @@ export default class ExportExcel extends Vue{
   }
 
   exportExcel(data: any[], fileName: string) {
-    return new Promise<void>((resolve, reject)=>{
+    return new Promise<boolean>((resolve, reject)=>{
       try {
         const chunkSize = 10;
         const chunks = chunk(data, chunkSize);
@@ -159,7 +159,7 @@ export default class ExportExcel extends Vue{
         const wbout = write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         fileSaver.saveAs(blob, fileName);
-        resolve()
+        resolve(true)
       } catch (error) {
         reject(error)
       }
@@ -168,24 +168,23 @@ export default class ExportExcel extends Vue{
 
   async exportClick(){
     this.pedding = true;
-    this.genraterData().then((res)=>{
-      const { list } = res;
-      if(Array.isArray(list)){
-        Message.success(`excel.xlsx开始下载、请稍后`);
-        delay(()=>{
-          this.exportExcel(list, "excel.xlsx").catch(()=>{
-            Message.error("excel.xlsx下载失败了")
-          }).finally(()=>{
-            Message.success("excel.xlsx下载成功啦。撒花。。。")
-            this.pedding = false; 
-          })
-        }, 12000)
-      }
-    }).catch(()=>{
+    const { list } = await <Promise<{ list: IEnumerable[]}>>this.genraterData().catch(()=>{
       MessageBox("excel.xlsx获取数据失败了",'提示').finally(()=>{
         this.pedding = false; 
       })
     })
+    if(Array.isArray(list)){
+      Message.success(`excel.xlsx开始下载、请稍后`);
+      delay( async ()=>{
+        const isSuccess = await this.exportExcel(list, "excel.xlsx").catch(()=>{
+          Message.error("excel.xlsx下载失败了")
+        })
+        if(isSuccess == true){
+          Message.success("excel.xlsx下载成功啦。撒花。。。")
+          this.pedding = false; 
+        }
+      }, 5000)
+    }
     
   }
 }
