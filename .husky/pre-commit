@@ -1,0 +1,17 @@
+#!/bin/sh
+# https://stackoverflow.com/questions/50048717/lint-staged-not-running-on-precommit
+# Run prettier
+npx prettier --check examples/**/*.{js,ts,vue,scss} packages/**/*.{js,ts,vue,scss}
+if [ $? -ne 0 ]; then
+  echo "Code formatting check failed. Please run 'npm run format' to format your code."
+  exit 1
+fi
+
+# Check if git-cz is used for commit messages
+if ! grep -q "git-cz" "$(git rev-parse --show-toplevel)/package.json"; then
+  echo "git-cz is not configured for commit messages. Please run 'npm install -g commitizen' and 'commitizen init' to set it up."
+  exit 1
+fi
+
+
+exit 0
