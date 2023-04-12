@@ -1,4 +1,3 @@
-declare module 'vue/types/vue' {
-  interface Vue {
-  }
+declare module "vue/types/vue" {
+	interface Vue {}
 }

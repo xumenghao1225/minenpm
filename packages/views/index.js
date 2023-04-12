@@ -1,1 +1,1 @@
-export { default as directiveButton } from "./buttons/button.vue"
+export { default as directiveButton } from "./buttons/button.vue";
