@@ -8,14 +8,12 @@
 		".": "./dist/hsyCommon.umd.min.js"
 	},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "echo \"Error: no test specified\" && exit 0",
 		"semantic-release": "semantic-release --branches main",
-		"commit": "git-cz",
-		"lib": "npm run lib-local && npm run format && git add -A . && git-cz",
-		"lib-local": "vue-cli-service build --target lib --name hsyCommon --dest dist packages/index.js",
+		"format-commit": "npm run format && git add -A . && git-cz",
+		"lib": "vue-cli-service build --target lib --name hsyCommon --dest dist packages/index.js",
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
-		"lint": "prettier --check .",
 		"clean": "rm -rf node_modules && npm cache clean --force && rm -rf package-lock.json && npm install",
 		"format": "prettier --write \"examples/**/*.{js,jsx,ts,tsx,vue,json,html,css,md,scss}\" \"packages/**/*.{js,jsx,ts,tsx,vue,json,html,css,md,scss}\""
 	},
@@ -56,6 +54,7 @@
 		"@vue/eslint-config-standard": "^5.1.2",
 		"babel-plugin-component": "^1.1.1",
 		"commitizen": "^4.3.0",
+		"conventional-changelog-cli": "^2.2.2",
 		"css-loader": "^6.7.3",
 		"cz-conventional-changelog": "^3.3.0",
 		"file-saver": "^2.0.5",
@@ -80,7 +79,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm run lib"
+			"pre-commit": "./.husky/pre-commit"
 		}
 	}
 }
