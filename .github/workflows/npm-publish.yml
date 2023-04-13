@@ -57,7 +57,6 @@ jobs:
         github.event.pull_request.merged && 
         github.event.pull_request.head.ref == 'pre-release' && 
         github.ref == 'refs/heads/main' }}
-    needs: [build, test]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 12
