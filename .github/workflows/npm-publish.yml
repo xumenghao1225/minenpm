@@ -2,23 +2,71 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - test
   pull_request:
-    branches: '*'
+    branches:
+      - main
 
-jobs: 
-  publish:
+jobs:
+  build:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
-    steps: 
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12
-      uses: actions/setup-node@v2
-      with:
-        node-version: 12
-    - run: npm run clean
-    - run: npm ci
-    - run: npm run semantic-release
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.my_GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm run build
+      - name: Add previous commit info to pull request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PREVIOUS_COMMIT="$(git log -1 --pretty=format:'%h %s')"
+          echo "::set-env name=PREVIOUS_COMMIT::$PREVIOUS_COMMIT"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3.12.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Automated PR from test branch
+          title: Automated PR from test branch - ${{ env.PREVIOUS_COMMIT }}
+          body: |
+            ${{ env.PREVIOUS_COMMIT }}
+            This is an automated PR from the test branch.
+            Please review and merge if there are no issues.
+          branch: pre-release
+
+  test:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/test' }}
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm run test
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' && 
+        github.event.action == 'closed' && 
+        github.event.pull_request.merged && 
+        github.event.pull_request.head.ref == 'pre-release' && 
+        github.ref == 'refs/heads/main' }}
+    needs: [build, test]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - run: npm run clean
+      - run: npm ci
+      - run: npm run semantic-release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.my_GITHUB_TOKEN }}
