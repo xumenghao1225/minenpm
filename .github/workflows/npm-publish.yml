@@ -19,23 +19,23 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run build
-      - name: Add previous commit info to pull request
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add previous commit info to output
+        id: previous-commit
         run: |
           PREVIOUS_COMMIT="$(git log -1 --pretty=format:'%h %s')"
-          echo "::set-env name=PREVIOUS_COMMIT::$PREVIOUS_COMMIT"
+          echo "::set-output name=previous_commit::$PREVIOUS_COMMIT"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3.12.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Automated PR from test branch
-          title: Automated PR from test branch - ${{ env.PREVIOUS_COMMIT }}
+          title: Automated PR from test branch - ${{ steps.previous-commit.outputs.previous_commit }}
           body: |
-            ${{ env.PREVIOUS_COMMIT }}
+            ${{ steps.previous-commit.outputs.previous_commit }}
             This is an automated PR from the test branch.
             Please review and merge if there are no issues.
           branch: pre-release
+
 
   test:
     runs-on: ubuntu-latest
