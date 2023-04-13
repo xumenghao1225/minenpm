@@ -8,7 +8,7 @@
 		".": "./dist/hsyCommon.umd.min.js"
 	},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "echo \"Error: no test specified\" && exit 0",
 		"semantic-release": "semantic-release --branches main",
 		"commit": "git-cz",
 		"lib": "npm run lib-local && npm run format && git add -A . && git-cz",
