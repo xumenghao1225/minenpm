@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      COMMIT_MSG: ${{ github.event.head_commit.message }}
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 12
@@ -18,24 +20,22 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
-      - run: npm run build
-      - name: Add previous commit info to output
-        id: previous-commit
+      - run: npm run lib
+      - name: Set Environment File
+        id: env
         run: |
-          PREVIOUS_COMMIT="$(git log -1 --pretty=format:'%h %s')"
-          echo "::set-output name=previous_commit::$PREVIOUS_COMMIT"
+          echo "COMMIT_MSG=${COMMIT_MSG}" >> $GITHUB_ENV
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3.12.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Automated PR from test branch
-          title: Automated PR from test branch - ${{ steps.previous-commit.outputs.previous_commit }}
+          commit-message: Automated PR from main branch
+          title: Automated PR from main branch - ${{ env.COMMIT_MSG }}
           body: |
-            ${{ steps.previous-commit.outputs.previous_commit }}
-            This is an automated PR from the test branch.
+            ${{ env.COMMIT_MSG }}
+            This is an automated PR from the main branch.
             Please review and merge if there are no issues.
           branch: pre-release
-
 
   test:
     runs-on: ubuntu-latest
