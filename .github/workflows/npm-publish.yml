@@ -54,8 +54,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' && 
-        github.event.action == 'closed' && 
-        github.event.pull_request.merged && 
         github.event.pull_request.head.ref == 'pre-release' && 
         github.ref == 'refs/heads/main' }}
     steps:
