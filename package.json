@@ -54,6 +54,7 @@
 		"@vue/eslint-config-standard": "^5.1.2",
 		"babel-plugin-component": "^1.1.1",
 		"commitizen": "^4.3.0",
+		"conventional-changelog-cli": "^2.2.2",
 		"css-loader": "^6.7.3",
 		"cz-conventional-changelog": "^3.3.0",
 		"file-saver": "^2.0.5",
