@@ -41,8 +41,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' && 
-        github.ref !== 'refs/heads/test' }}
+    if: ${{ github.event_name == 'pull_request' && github.ref != 'refs/heads/test' }}
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 12
