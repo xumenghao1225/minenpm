@@ -22,6 +22,7 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run lib
+      - run: npm run test
       - name: Set Environment File
         id: env
         run: |
@@ -38,23 +39,9 @@ jobs:
             Please review and merge if there are no issues.
           branch: pre-release
 
-  test:
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/test' }}
-    needs: build
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 12
-        uses: actions/setup-node@v2
-        with:
-          node-version: 12
-      - run: npm ci
-      - run: npm run test
-
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' && 
-        github.ref == 'refs/heads/main' }}
+    if: ${{ github.event_name == 'pull_request' && github.ref != 'refs/heads/test' }}
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 12
