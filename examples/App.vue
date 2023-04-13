@@ -6,7 +6,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 @Component({
-	name: "Ap0.0.0.p",
+	name: "App",
 })
 export default class App extends Vue {
 	name = "App";
