@@ -1,39 +1,11 @@
 <template>
 	<div>
-		<CodeBox :code="code">
+		<CodeBox filename="directives">
 			<template #source>
 				<directiveButton type="primary" @click="DirectiveClick">Directive</directiveButton>
 				<Button type="primary" @click="normalClick">Normal</Button>
 			</template>
 			<template> 指令源码 </template>
-			<template #highlight>
-				<pre class="highlight code.hljs">
-          <code>
-            export const ClickDebounceDirective = {
-              bind: function(el, binding) {
-                function clickHandler(e) {
-                  if (el.contains(e.target)) {
-                    if (!el.disabled) {
-                      el.disabled = true;
-                      setTimeout(() => {
-                        el.disabled = false;
-                      }, binding.value || 3000);
-                    }
-                    return false;
-                  }
-                }
-
-                el.bffClick = clickHandler;
-                document.addEventListener("click", clickHandler);
-              },
-              unbind(el) {
-                document.removeEventListener("click", el.bffClick);
-                delete el.bffClick;
-              }
-            };
-          </code>
-      </pre>
-			</template>
 		</CodeBox>
 	</div>
 </template>
@@ -42,6 +14,7 @@
 import { Button, Message } from "element-ui";
 import { CodeBox } from "~/components";
 import { directiveButton } from "@/views";
+import { generateHtmlBymd } from "~/utils/md2html";
 import { Component, Vue } from "vue-property-decorator";
 @Component({
 	name: "Directives",
@@ -59,7 +32,9 @@ export default class Directives extends Vue {
 	normalClick() {
 		Message.info("Normal Click");
 	}
-
+	async generateHtml() {
+		generateHtmlBymd;
+	}
 	get code() {
 		return `
       DirectiveClick(){

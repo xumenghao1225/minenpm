@@ -6,8 +6,8 @@
 			</template>
 			<template> 实现源码 </template>
 			<template #highlight>
-				<pre class="highlight code.hljs">
-          <code>
+				<pre>
+          <code class="language-javascript">
             interface IEnumerable{
               id: string,
               name: string

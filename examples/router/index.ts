@@ -9,6 +9,7 @@ export const routes: Array<RouteConfig> = [
 		path: "/",
 		name: "首页",
 		component: () => import("~/views/index.vue"),
+		redirect: "/directives",
 		children: [
 			{
 				path: "directives",
